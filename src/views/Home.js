@@ -1,60 +1,72 @@
 import React from 'react';
-import { Box, HStack, Image, Text, VStack, Wrap, WrapItem } from '@chakra-ui/react';
-import Headshot from 'src/media/casual_headshot.jpg';
-import { FaGithub, FaLinkedinIn, FaRegEnvelope } from 'react-icons/fa';
+import { Box, Text } from '@chakra-ui/react';
+import Sidebar from 'src/components/Sidebar';
+import Landing from 'src/components/Landing';
+import Education from 'src/components/Education';
+import Interest from 'src/components/Interest';
+import Experience from 'src/components/Experience';
+import Skills from 'src/components/Skills';
 
 const Home = () => {
-  const mailRef = React.createRef();
-  const isMobile = window.innerWidth < 992;
-
-  return (
-    <Box bg="white" h="100vh" display="flex" justifyContent="center" alignItems="center">
-      <Wrap align="center" justify="center" spacing="25px">
-        <WrapItem>
-          <Box
-            overflow="hidden"
-            borderRadius="50%"
-            h={200}
-            w={200}
-            border="solid 10px rgba(140,21,21,0.9)"
-            boxShadow="0 8px 12px rgba(0,0,0,0.2)"
-          >
-            <Image src={Headshot} mt={-5} />
-          </Box>
-        </WrapItem>
-        <WrapItem>
-          <VStack
-            spacing={15}
-            alignItems={isMobile ? "center" : "left"}
-            textAlign={isMobile ? "center" : "left"}
-          >
-            <Text fontSize="4xl">👋 Tommy Adams</Text>
-            <Text>My website is under reconstruction, but here are my important links:</Text>
-            <HStack spacing={25}>
-              <Box
-                as={FaLinkedinIn}
-                fontSize="2xl"
-                onClick={() => window.open('https://www.linkedin.com/in/thomas-adams-2001/', '_blank')}
-                style={{ cursor: 'pointer' }}
-              />
-              <Box
-                as={FaGithub}
-                fontSize="2xl"
-                onClick={() => window.open('https://github.com/tommy-adams', '_blank')}
-                style={{ cursor: 'pointer' }}
-              />
-              <Box
-                as={FaRegEnvelope}
-                fontSize="2xl"
-                onClick={() => mailRef.current.click()}
-                style={{ cursor: 'pointer' }}
-              />
-              {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
-              <a href="mailto:thomasadams012@gmail.com" hidden ref={mailRef} />
-            </HStack>
-          </VStack>
-        </WrapItem>
-      </Wrap>
+ return (
+    <Box w="100%" h="2000px">
+      <Sidebar />
+      <Landing />
+      <Box bg="white" textAlign="center" p="50px">
+        <Text
+          fontSize={{ base: "2xl", md: "4xl"}}
+          fontWeight={700}
+          data-sal="slide-up"
+          data-sal-duration="1000"
+        >
+          —— What I'm up to ——
+        </Text>
+        <Education />
+      </Box>
+      <Box bg="#ECECEC" textAlign="center" p="50px">
+        <Text
+          fontSize={{ base: "2xl", md: "4xl" }}
+          fontWeight={700}
+          data-sal="slide-up"
+          data-sal-duration="1000"
+        >
+          —— My SWE Path ——
+        </Text>
+        <Experience />
+      </Box>
+      <Box bg="white" textAlign="center" p="50px">
+        <Text
+          fontSize={{ base: "2xl", md: "4xl" }}
+          fontWeight={700}
+          data-sal="slide-up"
+          data-sal-duration="1000"
+        >
+          —— Key Interest ——
+        </Text>
+        <Interest />
+      </Box>
+      <Box bg="#ECECEC" textAlign="center" p="50px">
+        <Text
+          fontSize={{ base: "2xl", md: "4xl" }}
+          fontWeight={700}
+          data-sal="slide-up"
+          data-sal-duration="1000"
+        >
+          —— Skills ——
+        </Text>
+        <Skills />
+      </Box>
+      <Box h="100vh" display="flex" justifyContent="center" alignItems="center">
+        <Text
+          fontSize={{ base: "2xl", md: "4xl" }}
+          fontWeight={700}
+          data-sal="slide-up"
+          data-sal-duration="1000"
+          color="white"
+        >
+          Connect with me!
+        </Text>
+      </Box>
     </Box>
   );
 };
