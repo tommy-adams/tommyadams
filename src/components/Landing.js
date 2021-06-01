@@ -23,7 +23,7 @@ const Landing = () => {
           >
             Hey, I'm Tommy Adams.
           </Text>
-          <Image src={MobilePicture} h="100vh" position="fixed" zIndex={-2} />
+          <Image src={MobilePicture} position="fixed" zIndex={-2} objectFit="cover" />
         </>
       ) : (
         <>
@@ -40,7 +40,7 @@ const Landing = () => {
           >
             Hey, I'm Tommy Adams.
           </Text>
-          <Image src={Picture} w="100vw" position="fixed" zIndex={-2} />
+          <Image src={Picture} position="fixed" zIndex={-2} objectFit="cover" />
         </>
       )}
     </Box>
