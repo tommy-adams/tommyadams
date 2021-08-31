@@ -37,9 +37,10 @@ const Subscribe = ({ actions, user }) => {
   };
 
   useEffect(() => {
-    if (typeof user === "boolean" || user.length === 0) {
+    console.log(user);
+    if (typeof user === "boolean") {
       setError(true);
-    } else {
+    } else if (user.length !== 0) {
       sessionStorage.setItem("token", JSON.stringify(user._id));
       window.location.pathname = "/calendario";
     }
@@ -175,6 +176,9 @@ const Subscribe = ({ actions, user }) => {
               SUBMIT
             </Button>
           </div>
+          {error &&
+            <p className="text-red-700">Sorry, we weren't able to subscribe you at this time. Please try again later.</p>
+          }
         </div>
       </div>
     </div>
