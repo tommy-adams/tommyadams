@@ -16,7 +16,10 @@ const CalendarDay = ({ assignments, number, pos, currDate }) => {
         <p className="text-gray-500">{number}</p>
       </div>
       {assignments.map(a =>
-        <AssignmentBubble key={a._id} assignment={a} />  
+        <AssignmentBubble
+          key={a._id}
+          assignment={a}
+        />  
       )}
     </div>
   );

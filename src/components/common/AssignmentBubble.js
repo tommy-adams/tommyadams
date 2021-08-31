@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useCallback } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { MdAssignment } from "react-icons/md";
+import AssignmentContext from "src/contexts/AssignmentContext";
 import AssignmentModal from "./AssignmentModal";
 
 const mapStateToProps = state => {
@@ -12,10 +13,14 @@ const mapStateToProps = state => {
 const AssignmentBubble = ({ assignment, classes }) => {
   const [course] = classes.filter(c => assignment.classId === c._id);
   const [modalOpen, setModalOpen] = useState(false);
+  const { setSelectedAssignment } = useContext(AssignmentContext);
+
+  const selectAssignment = useCallback(id => {
+    setModalOpen(x => !x);
+    setSelectedAssignment(id);
+  }, [setModalOpen, setSelectedAssignment]);
   
   if (!course) return <div />;
-
-  console.log(assignment);
 
   return (
     <>
@@ -23,7 +28,7 @@ const AssignmentBubble = ({ assignment, classes }) => {
       <div
         className="w-full rounded-md bg-white border flex items-center space-x-2 p-1 cursor-pointer mb-3 sm:mb-1"
         style={{ borderColor: course.color }}
-        onClick={() => setModalOpen(x => !x)}
+        onClick={() => selectAssignment(assignment._id)}
       >
         <MdAssignment style={{ color: course.color }} />
         <p className="text-md sm:text-sm" style={{ color: course.color }}>{assignment.title}</p>

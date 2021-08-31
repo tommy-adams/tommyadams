@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import clsx from "clsx";
 import * as assignmentAction from "src/actions/assignmentActions";
 import { Button, Select } from "@chakra-ui/react";
+import AssignmentContext from "src/contexts/AssignmentContext";
 
 const mapStateToProps = state => {
   const { sched: { schedule } } = state;
@@ -21,14 +22,14 @@ const AssignmentModal = ({ actions, classes, data, toggleModal }) => {
   const [classId, setClassId] = useState(data?.classId || "");
   const [date, setDate] = useState(new Date(data?.due) || new Date());
   const [error, setError] = useState(false);
-
-  console.log(data);
+  const { setSelectedAssignment } = useContext(AssignmentContext);
 
   const onCancel = () => {
     setTitle("");
     setDescription("");
     setClassId("");
     setDate(new Date());
+    setSelectedAssignment({});
     toggleModal(x => !x);
   };
 
@@ -57,11 +58,13 @@ const AssignmentModal = ({ actions, classes, data, toggleModal }) => {
     } else {
       await actions.createAssignment(payload);
     }
+    setSelectedAssignment({});
     toggleModal(x => !x);
   };
 
   const onDelete = async () => {
     await actions.deleteAssignment(data._id);
+    setSelectedAssignment({});
     toggleModal(x => !x);
   };
 

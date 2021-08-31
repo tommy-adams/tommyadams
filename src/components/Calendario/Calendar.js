@@ -7,6 +7,7 @@ import * as dateFunc from "src/utils/dateUtils";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import { Grid } from "@chakra-ui/react";
 import CalendarDay from "src/components/common/CalendarDay";
+import AssignmentContext from "src/contexts/AssignmentContext";
 
 const mapStateToProps = state => {
   const { assignment: { assignments } } = state;
@@ -23,6 +24,7 @@ const Calendar = ({ actions, assignments }) => {
   const [date, setDate] = useState(new Date());
   const [daysInMonth, setDaysInMonth] = useState(dateFunc.getDaysInMonth(date));
   const [dates, setDates] = useState([]);
+  const [selectedAssignment, setSelectedAssignment] = useState({});
 
   const fetchAssignments = async () => {
     const id = JSON.parse(sessionStorage.getItem("token"));
@@ -90,33 +92,35 @@ const Calendar = ({ actions, assignments }) => {
             />
           </div>
         </div>
-        {isMobile ? (
-          <div className="px-6 pb-6">
-            <CalendarDay
-              key={date.getDate()}
-              assignments={assignments.filter(a => {
-                const dueDate = new Date(a.due);
-                dueDate.setDate(dueDate.getDate() + 1);
-                return dateFunc.datesEqual(date, dueDate);
-              })}
-              number={date.getDate()}
-              pos={date.getDate()}
-              currDate
-            />
-          </div>
-        ) : (
-          <Grid templateRows="repeat(5, 1fr)" templateColumns="repeat(7, 1fr)" px="4" pb="4">
-            {dates.map((d, i) =>
+        <AssignmentContext.Provider value={{ selectedAssignment, setSelectedAssignment }}>
+          {isMobile ? (
+            <div className="px-6 pb-6">
               <CalendarDay
-                key={i + 1}
-                assignments={d.assignments}
-                number={d.date.getDate()}
-                pos={i + 1}
-                currDate={dateFunc.datesEqual(d.date, new Date())}
-              /> 
-            )}
-          </Grid>
-        )}
+                key={date.getDate()}
+                assignments={assignments.filter(a => {
+                  const dueDate = new Date(a.due);
+                  dueDate.setDate(dueDate.getDate() + 1);
+                  return dateFunc.datesEqual(date, dueDate);
+                })}
+                number={date.getDate()}
+                pos={date.getDate()}
+                currDate
+              />
+            </div>
+          ) : (
+            <Grid templateRows="repeat(5, 1fr)" templateColumns="repeat(7, 1fr)" px="4" pb="4">
+              {dates.map((d, i) =>
+                <CalendarDay
+                  key={i + 1}
+                  assignments={d.assignments}
+                  number={d.date.getDate()}
+                  pos={i + 1}
+                  currDate={dateFunc.datesEqual(d.date, new Date())}
+                /> 
+              )}
+            </Grid>
+          )}
+        </AssignmentContext.Provider>
       </div>
     </div>
   );
