@@ -103,6 +103,9 @@ const Calendar = ({ actions, assignments }) => {
         <AssignmentContext.Provider value={{ selectedAssignment, setSelectedAssignment }}>
           {isMobile ? (
             <div className="px-6 pb-6">
+              <div className="text-center w-full mb-2">
+                <p className="text-gray-400">{dateFunc.getDayOfWeek(date)}</p>
+              </div>
               <CalendarDay
                 key={date.getDate()}
                 assignments={assignments.filter(a => {

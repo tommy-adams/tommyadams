@@ -20,3 +20,9 @@ export const datesEqual = (d1, d2) => {
 
   return false;
 };
+
+export const getDayOfWeek = d => {
+  const date = new Date(d);
+  const dayOfWeek = date.getDay();
+  return isNaN(dayOfWeek) ? null : ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"][dayOfWeek];
+};
