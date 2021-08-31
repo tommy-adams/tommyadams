@@ -3,11 +3,20 @@ import PropTypes from "prop-types";
 import clsx from "clsx";
 import AssignmentBubble from "./AssignmentBubble";
 
-const CalendarDay = ({ assignments, number, pos, currDate }) => {
+const CalendarDay = ({ assignments, number, pos, currDate, empty, rows }) => {
+  if (empty)
+    return (
+      <div className={clsx("w-full h-96 sm:h-40 p-2", {
+          "border-r border-r-gray-100": pos % 7 !== 0,
+          "border-b border-b-gray-100": pos < 29
+        })}
+      />
+    );
+
   return (
     <div className={clsx("w-full h-96 sm:h-40 p-2", {
         "border-r border-r-gray-100": pos % 7 !== 0,
-        "border-b border-b-gray-100": pos < 29,
+        "border-b border-b-gray-100": (rows === 5 && pos < 29) || (rows === 6 && pos < 36),
         "bg-purple-50": currDate,
         "rounded-md border border-purple-300 ": window.innerWidth <= 640
       })}
@@ -27,9 +36,11 @@ const CalendarDay = ({ assignments, number, pos, currDate }) => {
 
 CalendarDay.propTypes = {
   assignments: PropTypes.array.isRequired,
-  number: PropTypes.number.isRequired,
+  number: PropTypes.any.isRequired,
   pos: PropTypes.number.isRequired,
-  currDate: PropTypes.bool.isRequired
+  currDate: PropTypes.bool.isRequired,
+  empty: PropTypes.bool.isRequired,
+  rows: PropTypes.number.isRequired
 };
 
 export default CalendarDay;

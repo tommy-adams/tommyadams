@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import * as userAction from "src/actions/userActions";
 import { Button } from "@chakra-ui/react";
 import Calendar from "src/media/undraw_calendar.svg";
+import LoadWrapper from "src/components/common/LoadWrapper";
 
 const mapStateToProps = state => {
   const { auth } = state;
@@ -19,15 +20,22 @@ const isMobile = window.innerWidth <= 640;
 
 const Login = ({ actions, user }) => {
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   if (sessionStorage.getItem("token")) window.location.pathname = "/calendario";
 
   const onLogin = async () => {
-    const data = {
-      email: document.getElementById("email").value,
-      password: document.getElementById("password").value
-    };
-    await actions.userLogin(data);
+    setLoading(true);
+    try {
+      const data = {
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value
+      };
+      await actions.userLogin(data);
+    } catch (err) {
+      console.error(err)
+    }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -38,6 +46,8 @@ const Login = ({ actions, user }) => {
       window.location.pathname = "/calendario";
     }
   }, [user]);
+
+  if (loading) return <LoadWrapper />;
 
   if (isMobile) {
     return (

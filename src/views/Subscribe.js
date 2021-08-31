@@ -6,6 +6,7 @@ import * as userAction from "src/actions/userActions";
 import { Button } from "@chakra-ui/react"; 
 import validPassword from "src/utils/validPassword";
 import Calendar from "src/media/undraw_calendar.svg";
+import LoadWrapper from "src/components/common/LoadWrapper";
 
 const mapStateToProps = state => {
   const { auth: { user } } = state;
@@ -26,18 +27,24 @@ const Subscribe = ({ actions, user }) => {
     password: ""
   });
   const [passwordValid, setPasswordValid] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async () => {
-    const payload = {
-      firstName: document.getElementById("firstName").value,
-      email: document.getElementById("email").value,
-      password: document.getElementById("password").value
-    };
-    await actions.createUser(payload);
+    setLoading(true);
+    try {
+      const payload = {
+        firstName: document.getElementById("firstName").value,
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value
+      };
+      await actions.createUser(payload);
+    } catch (err) {
+      console.error(err);
+    }
+    setLoading(false);
   };
 
   useEffect(() => {
-    console.log(user);
     if (typeof user === "boolean") {
       setError(true);
     } else if (user.length !== 0) {
@@ -61,6 +68,8 @@ const Subscribe = ({ actions, user }) => {
     data.firstName === "" || data.email === "" || data.password === "" || !passwordValid,
     [data, passwordValid]
   );
+
+  if (loading) return <LoadWrapper />;
 
   if (isMobile) {
     return (

@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -25,6 +26,7 @@ const Calendar = ({ actions, assignments }) => {
   const [daysInMonth, setDaysInMonth] = useState(dateFunc.getDaysInMonth(date));
   const [dates, setDates] = useState([]);
   const [selectedAssignment, setSelectedAssignment] = useState({});
+  const [startPos, setStartPos] = useState(0);
 
   const fetchAssignments = async () => {
     const id = JSON.parse(sessionStorage.getItem("token"));
@@ -33,7 +35,6 @@ const Calendar = ({ actions, assignments }) => {
 
   useEffect(() => {
     fetchAssignments();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -41,6 +42,7 @@ const Calendar = ({ actions, assignments }) => {
     for (let i = 1; i <= daysInMonth; i++) {
       const day = new Date(date);
       day.setDate(i);
+      if (i === 1) setStartPos(day.getDay());
       newDates.push({
         date: day,
         assignments: assignments.filter(a => {
@@ -50,9 +52,13 @@ const Calendar = ({ actions, assignments }) => {
         })
       });
     }
+
+    for (let i = 0; i < startPos; i++) {
+          newDates.unshift({ date: null, assignments: [] });
+        }
+
     setDates(newDates);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [daysInMonth, JSON.stringify(assignments), date]);
+  }, [daysInMonth, JSON.stringify(assignments), date, startPos]);
 
   const arrowClickDesktop = useCallback(direction => {
     setDate(date => {
@@ -72,6 +78,8 @@ const Calendar = ({ actions, assignments }) => {
       return newDate;
     });
   }, [setDate]);
+
+  const numRows = useMemo(() => [5,6].includes(startPos) ? 6 : 5, [startPos]);
 
   return (
     <div className="w-full px-8 sm:px-16 pb-4 sm:pb-8">
@@ -108,17 +116,44 @@ const Calendar = ({ actions, assignments }) => {
               />
             </div>
           ) : (
-            <Grid templateRows="repeat(5, 1fr)" templateColumns="repeat(7, 1fr)" px="4" pb="4">
-              {dates.map((d, i) =>
-                <CalendarDay
-                  key={i + 1}
-                  assignments={d.assignments}
-                  number={d.date.getDate()}
-                  pos={i + 1}
-                  currDate={dateFunc.datesEqual(d.date, new Date())}
-                /> 
-              )}
-            </Grid>
+            <>
+              <Grid templateColumns="repeat(7, 1fr)" px="4" pb="4">
+                <div className="border-t border-b border-gray-200 text-center w-full">
+                  <p className="text-gray-400">SUNDAY</p>
+                </div>
+                <div className="border-t border-b border-gray-200 text-center w-full">
+                  <p className="text-gray-400">MONDAY</p>
+                </div>
+                <div className="border-t border-b border-gray-200 text-center w-full">
+                  <p className="text-gray-400">TUESDAY</p>
+                </div>
+                <div className="border-t border-b border-gray-200 text-center w-full">
+                  <p className="text-gray-400">WEDNESDAY</p>
+                </div>
+                <div className="border-t border-b border-gray-200 text-center w-full">
+                  <p className="text-gray-400">THURSDAY</p>
+                </div>
+                <div className="border-t border-b border-gray-200 text-center w-full">
+                  <p className="text-gray-400">FRIDAY</p>
+                </div>
+                <div className="border-t border-b border-gray-200 text-center w-full">
+                  <p className="text-gray-400">SATURDAY</p>
+                </div>
+              </Grid>
+              <Grid templateRows={`repeat(${numRows}, 1fr)`} templateColumns="repeat(7, 1fr)" px="4" pb="4">
+                {dates.map((d, i) =>
+                  <CalendarDay
+                    key={i + 1}
+                    assignments={d.assignments}
+                    number={d.date?.getDate() || ""}
+                    pos={i + 1}
+                    currDate={dateFunc.datesEqual(d.date, new Date())}
+                    empty={d.date === null}
+                    rows={numRows}
+                  /> 
+                )}
+              </Grid>
+            </>
           )}
         </AssignmentContext.Provider>
       </div>
