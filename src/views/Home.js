@@ -1,11 +1,11 @@
 import React from 'react';
 import { Box, Text } from '@chakra-ui/react';
-import Sidebar from 'src/components/Sidebar';
-import Landing from 'src/components/Landing';
-import Education from 'src/components/Education';
-import Interest from 'src/components/Interest';
-import Experience from 'src/components/Experience';
-import Skills from 'src/components/Skills';
+import Sidebar from 'src/components/Home/Sidebar';
+import Landing from 'src/components/Home/Landing';
+import Education from 'src/components/Home/Education';
+import Interest from 'src/components/Home/Interest';
+import Experience from 'src/components/Home/Experience';
+import Skills from 'src/components/Home/Skills';
 
 const Home = () => {
  return (
