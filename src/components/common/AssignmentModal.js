@@ -23,6 +23,7 @@ const AssignmentModal = ({ actions, classes, data, toggleModal }) => {
   const [date, setDate] = useState(new Date(data?.due) || new Date());
   const [error, setError] = useState(false);
   const { setSelectedAssignment } = useContext(AssignmentContext);
+  const userId = JSON.parse(sessionStorage.getItem("token"));
 
   const onCancel = () => {
     setTitle("");
@@ -39,20 +40,20 @@ const AssignmentModal = ({ actions, classes, data, toggleModal }) => {
       return;
     }
 
-    const userId = JSON.parse(sessionStorage.getItem("token"));
-
     let payload = {
       title,
       description,
       classId,
       userId,
-      due: date
+      due: date,
+      complete: false
     };
 
     if (data) {
       payload = {
         ...payload,
-        _id: data._id
+        _id: data._id,
+        complete: data.complete
       };
       await actions.updateAssignment(payload);
     } else {
@@ -64,6 +65,21 @@ const AssignmentModal = ({ actions, classes, data, toggleModal }) => {
 
   const onDelete = async () => {
     await actions.deleteAssignment(data._id);
+    setSelectedAssignment({});
+    toggleModal(x => !x);
+  };
+
+  const onComplete = async () => {
+    let payload = {
+      _id: data._id,
+      title,
+      description,
+      classId,
+      userId,
+      due: date,
+      complete: !data.complete
+    };
+    await actions.updateAssignment(payload);
     setSelectedAssignment({});
     toggleModal(x => !x);
   };
@@ -117,9 +133,14 @@ const AssignmentModal = ({ actions, classes, data, toggleModal }) => {
             CANCEL
           </Button>
           {data && (
-            <Button colorScheme="red" onClick={onDelete}>
-              DELETE
-            </Button>
+            <>
+              <Button colorScheme="red" onClick={onDelete}>
+                DELETE
+              </Button>
+              <Button colorScheme="purple" variant="outline" onClick={onComplete}>
+                {data.complete ? "MARK AS INCOMPLETE" : "MARK AS COMPLETE"}
+              </Button>
+            </>
           )}
           <Button colorScheme="purple" onClick={onSave}>
             SAVE
