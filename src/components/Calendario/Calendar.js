@@ -64,7 +64,7 @@ const Calendar = ({ actions, assignments }) => {
     setDate(date => {
       const newDate = new Date(date);
       // necessary for end of months with different lengths
-      if (newDate.getMonth() + direction !== new Date().getMonth()) newDate.setDate(1);
+      if (newDate.getMonth() + direction !== new Date(date).getMonth()) newDate.setDate(1);
       newDate.setMonth(newDate.getMonth() + direction);
       setDaysInMonth(dateFunc.getDaysInMonth(newDate));
       return newDate;
