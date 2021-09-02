@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -24,6 +24,10 @@ const AssignmentModal = ({ actions, classes, data, toggleModal }) => {
   const [error, setError] = useState(false);
   const { setSelectedAssignment } = useContext(AssignmentContext);
   const userId = JSON.parse(sessionStorage.getItem("token"));
+
+  useEffect(() => {
+    document.getElementById("title").focus();
+  }, []);
 
   const onCancel = () => {
     setTitle("");
@@ -120,16 +124,19 @@ const AssignmentModal = ({ actions, classes, data, toggleModal }) => {
               </option>
             )}
           </Select>
-          <input
-            id="date"
-            type="date"
-            className="form-input form-control"
-            date={date}
-            onChange={e => setDate(e.target.value)}
-          />
+          <div className="flex space-x-4 w-full items-center">
+            {window.innerWidth <= 640 && <h6>Date</h6>}
+            <input
+              id="date"
+              type="date"
+              className="form-input focus:ring focus:ring-purple-300 border border-gray-200 rounded-md w-full"
+              date={date}
+              onChange={e => setDate(e.target.value)}
+            />
+          </div>
         </div>
-        <div className="flex justify-end mt-4 space-x-4">
-          <Button variant="outline" colorScheme="gray" onClick={onCancel}>
+        <div className="flex flex-wrap justify-end mt-4 space-x-2 sm:space-x-4">
+          <Button variant="outline" colorScheme="gray" onClick={onCancel} className="mb-2 sm:mb-0">
             CANCEL
           </Button>
           {data && (

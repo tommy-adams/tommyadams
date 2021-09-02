@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -14,6 +14,10 @@ const ClassModal = ({ actions, data, toggleModal, toggleSelectedClass }) => {
   const [color, setColor] = useState(data?.color || "#000");
   const [name, setName] = useState(data?.name || "");
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+    document.getElementById("class-name").focus();
+  }, []);
 
   const onCancel = () => {
     setColor("#000");

@@ -78,7 +78,7 @@ const ActionBar = ({ actions, user, classes }) => {
       <div className={clsx("flex w-full", {
         "flex-wrap space-y-2": window.innerWidth <= 640
       })}>
-        <div className="w-full lg:w-1/2 flex space-x-6 justify-center sm:justify-end">
+        <div className="w-full lg:w-1/2 flex flex-wrap space-x-6 justify-center sm:justify-end">
           {classes.map(c => {
             return (
               <div key={c._id} className="flex space-x-2 items-center">
