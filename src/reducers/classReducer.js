@@ -16,8 +16,7 @@ const createClass = (state, newSchedule) => {
 const updateClass = (state, updatedSchedule) => {
 	const { schedule } = state;
 	const tempSchedule = schedule;
-	const target = tempSchedule.filter(c => c._id === updatedSchedule._id)[0];
-	const index = tempSchedule.indexOf(target);
+	const index = tempSchedule.findIndex(x => x._id === updatedSchedule._id);
 	tempSchedule.splice(index, 1);
 	tempSchedule.push(updatedSchedule);
 	return { ...state, schedule: tempSchedule };
@@ -26,8 +25,7 @@ const updateClass = (state, updatedSchedule) => {
 const deleteClass = (state, deletedClass) => {
 	const { schedule, total } = state;
 	const tempSchedule = schedule;
-	const target = tempSchedule.filter(c => c._id === deletedClass._id)[0];
-	const index = tempSchedule.indexOf(target);
+	const index = tempSchedule.findIndex(x => x._id === deletedClass._id);
 	tempSchedule.splice(index, 1);
 	return { ...state, schedule: tempSchedule, total: total - 1 };
 };

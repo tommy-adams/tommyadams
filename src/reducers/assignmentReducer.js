@@ -16,8 +16,7 @@ const createAssignment = (state, newAssignment) => {
 const updateAssignment = (state, updatedAssignment) => {
 	const { assignments } = state;
 	const tempAssignments = assignments;
-	const target = tempAssignments.filter(a => a._id === updatedAssignment._id)[0];
-	const index = tempAssignments.indexOf(target);
+	const index = tempAssignments.findIndex(x => x._id === updatedAssignment._id);
 	tempAssignments.splice(index, 1);
 	tempAssignments.push(updatedAssignment);
 	return { ...state, assignments: tempAssignments };
@@ -26,8 +25,7 @@ const updateAssignment = (state, updatedAssignment) => {
 const deleteAssignment = (state, deletedAssignment) => {
 	const { assignments, total } = state;
 	const tempAssignments = assignments;
-	const target = tempAssignments.filter(a => a._id === deletedAssignment._id)[0];
-	const index = tempAssignments.indexOf(target);
+	const index = tempAssignments.findIndex(x => x._id === deletedAssignment._id);
 	tempAssignments.splice(index, 1);
 	return { ...state, assignments: tempAssignments, total: total - 1 };
 };

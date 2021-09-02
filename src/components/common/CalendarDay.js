@@ -6,7 +6,7 @@ import AssignmentBubble from "./AssignmentBubble";
 const CalendarDay = ({ assignments, number, pos, currDate, empty, rows }) => {
   if (empty)
     return (
-      <div className={clsx("w-full h-96 sm:h-40 p-2", {
+      <div className={clsx("w-full min-h-96 sm:min-h-40 p-2", {
           "border-r border-r-gray-100": pos % 7 !== 0,
           "border-b border-b-gray-100": pos < 29
         })}
@@ -14,7 +14,7 @@ const CalendarDay = ({ assignments, number, pos, currDate, empty, rows }) => {
     );
 
   return (
-    <div className={clsx("w-full h-96 sm:h-40 p-2", {
+    <div className={clsx("w-full min-h-96 sm:min-h-40 p-2", {
         "border-r border-r-gray-100": pos % 7 !== 0,
         "border-b border-b-gray-100": (rows === 5 && pos < 29) || (rows === 6 && pos < 36),
         "bg-purple-50": currDate,
