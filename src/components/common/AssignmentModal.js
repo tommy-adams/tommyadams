@@ -145,7 +145,7 @@ const AssignmentModal = ({ actions, classes, data, toggleModal }) => {
                 DELETE
               </Button>
               <Button colorScheme="purple" variant="outline" onClick={onComplete}>
-                {data.complete ? "MARK AS INCOMPLETE" : "MARK AS COMPLETE"}
+                {data.complete ? "MARK INCOMPLETE" : "MARK COMPLETE"}
               </Button>
             </>
           )}
