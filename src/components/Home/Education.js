@@ -19,12 +19,10 @@ const Education = () => {
           <Text align="left" fontSize="3xl" fontWeight={500}>Stanford University 🌲</Text>
           <Text align="left" fontSize="2xl" fontWeight={500}>Bachelor of Science, B.S. - Computer Science</Text>
           <Text align="left">
-            I am currently a first-year undergraduate student at Stanford University in Palo Alto, California.
+            I am currently a sophomore at Stanford University in Palo Alto, California.
             In my short time at Stanford, I have taken an interest in many topics including computer science,
-            high-level mathematics, and economics. I am still unsure if I will strive for a minor in economics
-            or mathematics, but I am certain that my major will be computer science with a specialization in 
-            artificial intelligence. My long-term goal at this university is to be accepted into its coterminal
-            program for AI.
+            high-level mathematics, and economics. I am a computer science major with a focus in AI, and my plans 
+            involve becoming a coterm at Stanford to build my knowledge in AI.
           </Text>
         </VStack>
       </WrapItem>

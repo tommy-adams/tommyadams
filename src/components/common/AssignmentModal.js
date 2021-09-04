@@ -91,7 +91,7 @@ const AssignmentModal = ({ actions, classes, data, toggleModal }) => {
   return (
     <div className="fixed top-0 bottom-0 left-0 right-0 bg-black bg-opacity-40 z-20">
       <div className="absolute w-5/6 sm:w-1/2 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 bg-white rounded-md p-8">
-        <h2 className="mb-4">Add an Assignment</h2>
+        <h2 className="mb-4">{data ? "Update Assignment" : "Add an Assignment"}</h2>
         {error && <p className="text-red-700 mb-1">Please fill in all fields (except description).</p>}
         <input
           id="title"

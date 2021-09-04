@@ -40,3 +40,13 @@ export const deleteAssignment = id => async dispatch => {
 
   return "Success";
 };
+
+export const deleteAssignmentsByClass = classId => async dispatch => {
+  await axios.delete(`/api/delete-by-class?classId=${classId}`)
+    .then(async a => dispatch({
+      type: types.DELETE_ASSIGNMENTS_SUCCESS,
+      payload: await a.data
+    }));
+
+  return "Success";
+};

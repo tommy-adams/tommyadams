@@ -69,7 +69,7 @@ const ActionBar = ({ actions, user, classes }) => {
   return (
     <div className="w-full px-10 py-6">
       {classModal &&
-        <ClassModal data={selectedClass} toggleModal={setClassModal} toggleSelectedClass={setSelectedClass} />
+        <ClassModal data={selectedClass} toggleModal={setClassModal} setSelectedClass={setSelectedClass} />
       }
       {assignmentModal &&
         <AssignmentModal data={null} toggleModal={setAssignmentModal} />

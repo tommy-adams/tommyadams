@@ -30,6 +30,16 @@ const deleteAssignment = (state, deletedAssignment) => {
 	return { ...state, assignments: tempAssignments, total: total - 1 };
 };
 
+const deleteAssignmentsByClass = (state, deletedAssignments) => {
+	const { assignments } = state;
+	const tempAssignments = assignments;
+	deletedAssignments.forEach(a => {
+		const index = tempAssignments.findIndex(x => x._id === a._id);
+		tempAssignments.splice(index, 1);
+	});
+	return { ...state, assignments: tempAssignments, total: tempAssignments.length };
+};
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function(state = initialState, action) {
 	switch(action.type) {
@@ -41,6 +51,8 @@ export default function(state = initialState, action) {
 			return updateAssignment(state, action.payload);
 		case types.DELETE_ASSIGNMENT_SUCCESS:
 			return deleteAssignment(state, action.payload);
+		case types.DELETE_ASSIGNMENTS_SUCCESS:
+			return deleteAssignmentsByClass(state, action.payload);
 		default:
 			return state;
 	}

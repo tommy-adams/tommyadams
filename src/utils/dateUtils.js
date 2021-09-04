@@ -26,3 +26,12 @@ export const getDayOfWeek = d => {
   const dayOfWeek = date.getDay();
   return isNaN(dayOfWeek) ? null : ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"][dayOfWeek];
 };
+
+export const dateLessThan = (d1, d2) => {
+  const date1 = new Date(d1);
+  const date2 = new Date(d2);
+
+  if (date1.getDate() <= date2.getDate() && date1.getMonth() < date2.getMonth()) return true;
+
+  return false;
+};

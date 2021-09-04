@@ -1,14 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback, useMemo, useContext } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import clsx from "clsx";
 import * as assignmentAction from "src/actions/assignmentActions";
 import * as dateFunc from "src/utils/dateUtils";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import { Grid } from "@chakra-ui/react";
 import CalendarDay from "src/components/common/CalendarDay";
 import AssignmentContext from "src/contexts/AssignmentContext";
+import CalendarContext from "src/contexts/CalendarContext";
 
 const mapStateToProps = state => {
   const { assignment: { assignments } } = state;
@@ -27,6 +29,9 @@ const Calendar = ({ actions, assignments }) => {
   const [dates, setDates] = useState([]);
   const [selectedAssignment, setSelectedAssignment] = useState({});
   const [startPos, setStartPos] = useState(0);
+  // eslint-disable-next-line no-unused-vars
+  const [render, rerender] = useState(false);
+  const { calendar } = useContext(CalendarContext);
 
   const fetchAssignments = async () => {
     const id = JSON.parse(sessionStorage.getItem("token"));
@@ -36,6 +41,18 @@ const Calendar = ({ actions, assignments }) => {
   useEffect(() => {
     fetchAssignments();
   }, []);
+
+  useEffect(() => {
+    const oldAssignments = assignments.filter(a => dateFunc.dateLessThan(a.due, new Date()));
+    oldAssignments.forEach(async a => {
+      await actions.deleteAssignment(a._id);
+    });
+  }, [new Date().getDate()]);
+
+  // work around for calendar not updating when class is deleted
+  useEffect(() => {
+    rerender(x => !x);
+  }, [calendar]);
 
   useEffect(() => {
     const newDates = [];
@@ -91,8 +108,15 @@ const Calendar = ({ actions, assignments }) => {
           </div>
           <div className="w-1/4 flex justify-end space-x-2 sm:space-x-4">
             <FiArrowLeft
-              className="cursor-pointer hover:text-purple-300 text-2xl"
-              onClick={() => isMobile ? arrowClickMobile(-1) : arrowClickDesktop(-1)}
+              className={clsx("text-2xl", {
+                "cursor-pointer hover:text-purple-300 text-black": date.getMonth() > new Date().getMonth() - 1,
+                "text-gray-200": date.getMonth() <= new Date().getMonth() - 1
+              })}
+              onClick={() => {
+                if (date.getMonth() > new Date().getMonth() - 1) {
+                  isMobile ? arrowClickMobile(-1) : arrowClickDesktop(-1);
+                }
+              }}
             />
             <FiArrowRight
               className="cursor-pointer hover:text-purple-300 text-2xl"

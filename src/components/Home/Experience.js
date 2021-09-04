@@ -43,20 +43,20 @@ const Experience = () => {
   return (
     <VStack spacing={25}>
       <ExpRow
+        image={Dulead}
+        name="Dulead"
+        link="https://dulead.com"
+        position="SWE Intern"
+        date="June 2018 – August 2021"
+        description={duleadDescription}
+      />
+      <ExpRow
         image={Thoughtcloud}
         name="Thoughtcloud"
         link="https://thoughtcloud.me"
         position="Frontend Engineer"
         date="January 2021 – April 2021"
         description={tcDescription}
-      />
-      <ExpRow
-        image={Dulead}
-        name="Dulead"
-        link="https://dulead.com"
-        position="SWE Intern"
-        date="June 2018 – December 2020"
-        description={duleadDescription}
       />
       <Text fontWeight={700}>...and other various freelance projects!</Text>
     </VStack>
