@@ -42,13 +42,6 @@ const Calendar = ({ actions, assignments }) => {
     fetchAssignments();
   }, []);
 
-  useEffect(() => {
-    const oldAssignments = assignments.filter(a => dateFunc.dateLessThan(a.due, new Date()));
-    oldAssignments.forEach(async a => {
-      await actions.deleteAssignment(a._id);
-    });
-  }, [new Date().getDate()]);
-
   // work around for calendar not updating when class is deleted
   useEffect(() => {
     rerender(x => !x);
@@ -82,7 +75,7 @@ const Calendar = ({ actions, assignments }) => {
       const newDate = new Date(date);
       // necessary for end of months with different lengths
       if (newDate.getMonth() + direction !== new Date(date).getMonth()) newDate.setDate(1);
-      newDate.setMonth(newDate.getMonth() + direction);
+      if (date.getMonth() > new Date().getMonth() - 1 || direction === 1) newDate.setMonth(newDate.getMonth() + direction);
       setDaysInMonth(dateFunc.getDaysInMonth(newDate));
       return newDate;
     });
@@ -110,13 +103,9 @@ const Calendar = ({ actions, assignments }) => {
             <FiArrowLeft
               className={clsx("text-2xl", {
                 "cursor-pointer hover:text-purple-300 text-black": date.getMonth() > new Date().getMonth() - 1,
-                "text-gray-200": date.getMonth() <= new Date().getMonth() - 1
+                "sm:text-gray-200": date.getMonth() <= new Date().getMonth() - 1
               })}
-              onClick={() => {
-                if (date.getMonth() > new Date().getMonth() - 1) {
-                  isMobile ? arrowClickMobile(-1) : arrowClickDesktop(-1);
-                }
-              }}
+              onClick={() => isMobile ? arrowClickMobile(-1) : arrowClickDesktop(-1)}
             />
             <FiArrowRight
               className="cursor-pointer hover:text-purple-300 text-2xl"

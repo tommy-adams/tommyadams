@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     minHeight: {
       '0': 0,
-      '40': '10rem'
+      '40': '10rem',
+      '96': '24rem'
     }
   },
   variants: {
