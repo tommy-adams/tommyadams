@@ -33,7 +33,9 @@ const AssignmentBubble = ({ assignment, classes }) => {
         style={{ borderColor: course.color }}
         onClick={() => selectAssignment(assignment._id)}
       >
-        <MdAssignment style={{ color: course.color }} />
+        <div className="w-8 flex justify-center">
+          <MdAssignment style={{ color: course.color }} />
+        </div>
         <p className="text-md sm:text-sm" style={{ color: course.color }}>{assignment.title}</p>
       </div>
     </>
