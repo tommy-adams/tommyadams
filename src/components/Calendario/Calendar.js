@@ -11,6 +11,7 @@ import { Grid } from "@chakra-ui/react";
 import CalendarDay from "src/components/common/CalendarDay";
 import AssignmentContext from "src/contexts/AssignmentContext";
 import CalendarContext from "src/contexts/CalendarContext";
+import LoadContext from "src/contexts/LoadContext";
 
 const mapStateToProps = state => {
   const { assignment: { assignments } } = state;
@@ -32,10 +33,13 @@ const Calendar = ({ actions, assignments }) => {
   // eslint-disable-next-line no-unused-vars
   const [render, rerender] = useState(false);
   const { calendar } = useContext(CalendarContext);
+  const { setLoading } = useContext(LoadContext);
 
   const fetchAssignments = async () => {
+    setLoading(true);
     const id = JSON.parse(sessionStorage.getItem("token"));
     await actions.loadAssignments(id);
+    setLoading(false);
   };
 
   useEffect(() => {

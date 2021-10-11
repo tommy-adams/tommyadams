@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -9,6 +9,7 @@ import { Button } from "@chakra-ui/react";
 import { FiPlus } from "react-icons/fi";
 import ClassModal from "src/components/common/ClassModal";
 import AssignmentModal from "src/components/common/AssignmentModal";
+import LoadContext from "src/contexts/LoadContext";
 
 const mapStateToProps = state => {
   const { auth, sched } = state;
@@ -23,10 +24,10 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const ActionBar = ({ actions, user, classes }) => {
-  const [loading, setLoading] = useState(false);
   const [classModal, setClassModal] = useState(false);
   const [assignmentModal, setAssignmentModal] = useState(false);
   const [selectedClass, setSelectedClass] = useState(null);
+  const { setLoading } = useContext(LoadContext);
 
   const fetchUser = async () => {
     setLoading(true);
@@ -64,7 +65,7 @@ const ActionBar = ({ actions, user, classes }) => {
     setSelectedClass(data);
   };
 
-  if (loading) return <div />;
+  // if (loading) return <div />;
 
   return (
     <div className="w-full px-10 py-6">
