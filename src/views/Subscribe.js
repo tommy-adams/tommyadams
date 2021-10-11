@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useContext } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -6,7 +6,7 @@ import * as userAction from "src/actions/userActions";
 import { Button } from "@chakra-ui/react"; 
 import validPassword from "src/utils/validPassword";
 import Calendar from "src/media/undraw_calendar.svg";
-import LoadWrapper from "src/components/common/LoadWrapper";
+import LoadContext from "src/contexts/LoadContext";
 
 const mapStateToProps = state => {
   const { auth: { user } } = state;
@@ -27,7 +27,7 @@ const Subscribe = ({ actions, user }) => {
     password: ""
   });
   const [passwordValid, setPasswordValid] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const { setLoading } = useContext(LoadContext);
 
   const onSubmit = async () => {
     setLoading(true);
@@ -68,8 +68,6 @@ const Subscribe = ({ actions, user }) => {
     data.firstName === "" || data.email === "" || data.password === "" || !passwordValid,
     [data, passwordValid]
   );
-
-  if (loading) return <LoadWrapper />;
 
   if (isMobile) {
     return (

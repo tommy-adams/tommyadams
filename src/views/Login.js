@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as userAction from "src/actions/userActions";
 import { Button } from "@chakra-ui/react";
 import Calendar from "src/media/undraw_calendar.svg";
-import LoadWrapper from "src/components/common/LoadWrapper";
+import LoadContext from "src/contexts/LoadContext";
 
 const mapStateToProps = state => {
   const { auth } = state;
@@ -20,7 +20,7 @@ const isMobile = window.innerWidth <= 640;
 
 const Login = ({ actions, user }) => {
   const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const { setLoading } = useContext(LoadContext);
 
   if (sessionStorage.getItem("token")) window.location.pathname = "/calendario";
 
@@ -46,8 +46,6 @@ const Login = ({ actions, user }) => {
       window.location.pathname = "/calendario";
     }
   }, [user]);
-
-  if (loading) return <LoadWrapper />;
 
   if (isMobile) {
     return (

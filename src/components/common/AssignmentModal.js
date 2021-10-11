@@ -6,6 +6,7 @@ import clsx from "clsx";
 import * as assignmentAction from "src/actions/assignmentActions";
 import { Button, Select } from "@chakra-ui/react";
 import AssignmentContext from "src/contexts/AssignmentContext";
+import LoadContext from "src/contexts/LoadContext";
 
 const mapStateToProps = state => {
   const { sched: { schedule } } = state;
@@ -23,6 +24,7 @@ const AssignmentModal = ({ actions, classes, data, toggleModal }) => {
   const [date, setDate] = useState(new Date(data?.due) || new Date());
   const [error, setError] = useState(false);
   const { setSelectedAssignment } = useContext(AssignmentContext);
+  const { setLoading } = useContext(LoadContext);
   const userId = JSON.parse(sessionStorage.getItem("token"));
 
   useEffect(() => {
@@ -39,6 +41,7 @@ const AssignmentModal = ({ actions, classes, data, toggleModal }) => {
   };
 
   const onSave = async () => {
+    setLoading(true);
     if (title === "" || classId === "" || date === null) {
       setError(true);
       return;
@@ -65,15 +68,19 @@ const AssignmentModal = ({ actions, classes, data, toggleModal }) => {
     }
     setSelectedAssignment({});
     toggleModal(x => !x);
+    setLoading(false);
   };
 
   const onDelete = async () => {
+    setLoading(true);
     await actions.deleteAssignment(data._id);
     setSelectedAssignment({});
     toggleModal(x => !x);
+    setLoading(false);
   };
 
   const onComplete = async () => {
+    setLoading(true);
     let payload = {
       _id: data._id,
       title,
@@ -86,6 +93,7 @@ const AssignmentModal = ({ actions, classes, data, toggleModal }) => {
     await actions.updateAssignment(payload);
     setSelectedAssignment({});
     toggleModal(x => !x);
+    setLoading(false);
   };
 
   return (

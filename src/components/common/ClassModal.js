@@ -7,6 +7,7 @@ import * as assignmentAction from "src/actions/assignmentActions";
 import { SliderPicker } from "react-color";
 import { Button } from "@chakra-ui/react";
 import CalendarContext from "src/contexts/CalendarContext";
+import LoadContext from "src/contexts/LoadContext";
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ ...classAction, ...assignmentAction }, dispatch)
@@ -17,6 +18,7 @@ const ClassModal = ({ actions, data, toggleModal, setSelectedClass }) => {
   const [name, setName] = useState(data?.name || "");
   const [error, setError] = useState(false);
   const { updateCalendar } = useContext(CalendarContext);
+  const { setLoading } = useContext(LoadContext);
 
   useEffect(() => {
     document.getElementById("class-name").focus();
@@ -29,6 +31,7 @@ const ClassModal = ({ actions, data, toggleModal, setSelectedClass }) => {
   };
 
   const onSave = async () => {
+    setLoading(true);
     if (name === "") {
       setError(true);
       return;
@@ -51,14 +54,17 @@ const ClassModal = ({ actions, data, toggleModal, setSelectedClass }) => {
       await actions.createClass(payload);
     }
     toggleModal(x => !x);
+    setLoading(false);
   };
 
   const onDelete = async () => {
+    setLoading(true);
     await actions.deleteClass(data._id);
     await actions.deleteAssignmentsByClass(data._id);
     if (data) setSelectedClass(null);
     updateCalendar([]);
     toggleModal(x => !x);
+    setLoading(false);
   };
 
   return (
