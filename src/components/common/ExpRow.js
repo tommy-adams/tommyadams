@@ -1,7 +1,7 @@
 import React from 'react';
 import { Wrap, WrapItem, Image, Text, VStack, Link } from '@chakra-ui/react';
 
-const Experience = ({ image, name, link, position, date, description }) => {
+const Experience = ({ image, name, link, position, date, description, imageWidth = '100%' }) => {
   return (
     <Wrap
       spacing={{ base: "50px", md: "75px" }}
@@ -9,9 +9,9 @@ const Experience = ({ image, name, link, position, date, description }) => {
       justify="center"
     >
       <WrapItem w={{ base: "100%", md: "30%" }} data-sal="slide-up" data-sal-duration="1000">
-        <Image src={image} />
+        <Image src={image} w={imageWidth} />
       </WrapItem>
-      <WrapItem w={{ base: "100%", md: "40%" }} data-sal="slide-up" data-sal-duration="1000">
+      <WrapItem w={{ base: "100%", md: "30%" }} data-sal="slide-up" data-sal-duration="1000">
         <VStack align="left" spacing={1}>
           <Link
             color="purple.500"

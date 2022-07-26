@@ -7,6 +7,7 @@ import { Button } from "@chakra-ui/react";
 import validPassword from "src/utils/validPassword";
 import Calendar from "src/media/undraw_calendar.svg";
 import LoadContext from "src/contexts/LoadContext";
+import { Link } from "react-router-dom";
 
 const mapStateToProps = state => {
   const { auth: { user } } = state;
@@ -123,6 +124,7 @@ const Subscribe = ({ actions, user }) => {
           {error &&
             <p className="text-red-700">{error}</p>
           }
+          <p className="absolute bottom-10 text-gray-400">Already have an account? <Link className="underline hover:text-purple-600" to="/clogin">Click here.</Link></p>
         </div>
       </div>
     );
@@ -186,6 +188,7 @@ const Subscribe = ({ actions, user }) => {
           {error &&
             <p className="text-red-700">{error}</p>
           }
+          <p className="absolute bottom-10 text-gray-400">Already have an account? <Link className="underline hover:text-purple-600" to="/clogin">Click here.</Link></p>
         </div>
       </div>
     </div>

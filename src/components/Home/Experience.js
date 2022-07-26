@@ -3,6 +3,15 @@ import { VStack, Text } from '@chakra-ui/react';
 import ExpRow from 'src/components/common/ExpRow';
 import Thoughtcloud from 'src/media/tc_logo.png';
 import Dulead from 'src/media/dulead_logo.png';
+import Peach from 'src/media/peach-3d.png';
+
+const peachDescription = (
+  <Text align="left">
+    Peach is an early-stage startup focused on alleviating loneliness in virtual spaces. As a co-founding engineer, my responsibilities 
+    included building out the Firestore database infrastructure, establishing authentication and an API through Firebase, building a 
+    notification infrastructure through Apple and Firebase, and developing significant app features in Swift and SwiftUI.
+  </Text>
+);
 
 const tcDescription = (
   <Text align="left">
@@ -43,10 +52,19 @@ const Experience = () => {
   return (
     <VStack spacing={25}>
       <ExpRow
+        image={Peach}
+        name="Peach"
+        link="https://peachparty.app"
+        position="Software Engineer"
+        date="April 2022 - Present"
+        description={peachDescription}
+        imageWidth="60%"
+      />
+      <ExpRow
         image={Dulead}
         name="Dulead"
         link="https://dulead.com"
-        position="SWE Intern"
+        position="Software Engineer Intern"
         date="June 2018 – August 2021"
         description={duleadDescription}
       />

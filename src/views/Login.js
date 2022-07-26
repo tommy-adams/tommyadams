@@ -6,6 +6,7 @@ import * as userAction from "src/actions/userActions";
 import { Button } from "@chakra-ui/react";
 import Calendar from "src/media/undraw_calendar.svg";
 import LoadContext from "src/contexts/LoadContext";
+import { Link } from "react-router-dom";
 
 const mapStateToProps = state => {
   const { auth } = state;
@@ -77,6 +78,7 @@ const Login = ({ actions, user }) => {
             </Button>
           </div>
           {error && <p className="text-red-700">{error}</p>}
+          <p className="absolute bottom-10 text-gray-400">Don't have an account? <Link className="underline hover:text-purple-600" to="/csubscribe">Click here.</Link></p>
         </div>
       </div>
     );
@@ -116,6 +118,7 @@ const Login = ({ actions, user }) => {
             </Button>
           </div>
           {error && <p className="text-red-700">{error}</p>}
+          <p className="absolute bottom-10 text-gray-400">Don't have an account? <Link className="underline hover:text-purple-600" to="/csubscribe">Click here.</Link></p>
         </div>
       </div>
     </div>
