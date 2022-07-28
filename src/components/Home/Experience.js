@@ -8,8 +8,8 @@ import Peach from 'src/media/peach-3d.png';
 const peachDescription = (
   <Text align="left">
     Peach is an early-stage startup focused on alleviating loneliness in virtual spaces. As a co-founding engineer, my responsibilities 
-    included building out the Firestore database infrastructure, establishing authentication and an API through Firebase, building a 
-    notification infrastructure through Apple and Firebase, and developing significant app features in Swift and SwiftUI.
+    included building out the Firestore database architecture, establishing authentication and an API through Firebase, building a 
+    push notification infrastructure through Apple and Firebase, and developing significant app features in Swift and SwiftUI.
   </Text>
 );
 

@@ -8,10 +8,10 @@ const Experience = ({ image, name, link, position, date, description, imageWidth
       py={15}
       justify="center"
     >
-      <WrapItem w={{ base: "100%", md: "30%" }} data-sal="slide-up" data-sal-duration="1000">
+      <WrapItem w={{ base: "100%", md: "30%" }} data-sal="slide-up" data-sal-duration="500">
         <Image src={image} w={imageWidth} />
       </WrapItem>
-      <WrapItem w={{ base: "100%", md: "30%" }} data-sal="slide-up" data-sal-duration="1000">
+      <WrapItem w={{ base: "100%", md: "30%" }} data-sal="slide-up" data-sal-duration="500">
         <VStack align="left" spacing={1}>
           <Link
             color="purple.500"

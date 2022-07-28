@@ -63,17 +63,6 @@ const Home = () => {
           </div>
         </div>
       </Box>
-      <Box h="100vh" display="flex" justifyContent="center" alignItems="center">
-        <Text
-          fontSize={{ base: "2xl", md: "4xl" }}
-          fontWeight={700}
-          data-sal="slide-up"
-          data-sal-duration="1000"
-          color="white"
-        >
-          Connect with me!
-        </Text>
-      </Box>
     </Box>
   );
 };
