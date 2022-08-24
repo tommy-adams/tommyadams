@@ -58,7 +58,7 @@ const Home = () => {
               Calendario is a task manager for students that allows them to effeciently keep track of their assignments.
               Some of its features involve a calendar to show the due date of your assignments, a color coding system for 
               each class, and a unique account for each student that uses it. It was created using the MERN stack as well 
-              as Redux, Chakra-UI, and Tailwindcss. You can sign-up <a className="underline hover:text-purple-900" href="https://tommyadams.xyz/csubscribe">here</a>.
+              as Redux, Chakra-UI, and Tailwindcss. You can sign up <a className="underline hover:text-purple-900" href="https://tommyadams.xyz/csubscribe">here</a>.
             </Text>
           </div>
         </div>
