@@ -41,12 +41,11 @@ const AssignmentModal = ({ actions, classes, data, toggleModal }) => {
   };
 
   const onSave = async () => {
-    setLoading(true);
     if (title === "" || classId === "" || date === null) {
       setError(true);
       return;
     }
-
+    setLoading(true);
     let payload = {
       title,
       description,

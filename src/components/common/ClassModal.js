@@ -31,12 +31,11 @@ const ClassModal = ({ actions, data, toggleModal, setSelectedClass }) => {
   };
 
   const onSave = async () => {
-    setLoading(true);
     if (name === "") {
       setError(true);
       return;
     }
-
+    setLoading(true);
     let payload = {
       name,
       color,
