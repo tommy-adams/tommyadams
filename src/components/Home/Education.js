@@ -21,8 +21,8 @@ const Education = () => {
           <Text align="left">
             I am currently a junior at Stanford University in Stanford, California. My major is in computer science 
             with a special focus in Systems, including operating systems, compilers, networking, security, and 
-            blockchain technologies. Accompanying my major, I am pursuing a minor in mathematics, with studies in 
-            matrix theory, graph theory, and linear algebra.
+            blockchain technologies. Accompanying my major, I am pursuing a minor in history, which is a subject that 
+            I enjoy reading about in my free time.
           </Text>
         </VStack>
       </WrapItem>
